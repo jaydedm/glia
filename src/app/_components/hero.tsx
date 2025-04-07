@@ -153,10 +153,10 @@ const Hero = () => {
         >
           <Link href="/books" style={{
             position: "absolute",
-            top: "2rem",
-            right: "2rem",
-            width: "2.5rem",
-            height: "2.5rem",
+            top: ".5rem",
+            right: ".5rem",
+            width: "4.5rem",
+            height: "4.5rem",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
