@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Adjust height as needed */
+  overflow: hidden;
+}
+
+.hero-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Common styles for masks and slider */
+.hero-top-mask,
+.hero-bottom-mask,
+.hero-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-top-mask img,
+.hero-bottom-mask img,
+.hero-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Clip the top half for the top mask */
+.hero-top-mask {
+  z-index: 2;
+  clip-path: inset(0 0 50% 0);
+}
+
+/* Clip the bottom half for the bottom mask */
+.hero-bottom-mask {
+  z-index: 2;
+  clip-path: inset(50% 0 0 0);
+}
+
+/* Background image sits underneath the masks */
+.hero-slider {
+  z-index: 1;
+}
