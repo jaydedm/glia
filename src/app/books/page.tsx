@@ -70,7 +70,7 @@ function BookCover({ id }: { id: number }) {
           />
         </div>
         <div className="book-description">
-          <p>{book.description}</p>
+          <p>{book?.description}</p>
         </div>
       </div>
       <motion.h2
@@ -78,7 +78,7 @@ function BookCover({ id }: { id: number }) {
         initial={{ visibility: "hidden" }}
         animate={{ visibility: "visible" }}
         style={{ y }}
-      >{`${book.month}`}</motion.h2>
+      >{`${book?.month}`}</motion.h2>
     </section>
   );
 }
