@@ -65,8 +65,8 @@ function BookCover({ id }: { id: number }) {
       <div ref={ref} className="book-content">
         <div className="book-cover">
           <img
-            src={`/book-cover-art/${book.image}`}
-            alt={`Book cover for ${book.title}`}
+            src={`/book-cover-art/${book?.image}`}
+            alt={`Book cover for ${book?.title}`}
           />
         </div>
         <div className="book-description">
