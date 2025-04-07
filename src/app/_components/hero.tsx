@@ -151,18 +151,24 @@ const Hero = () => {
             backgroundColor: "#eaf5e9",
           }}
         >
-          <Link href="/books">
+          <Link href="/books" style={{
+            position: "absolute",
+            top: "2rem",
+            right: "2rem",
+            width: "2.5rem",
+            height: "2.5rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 10,
+          }}>
             <div
               id="books-link"
               style={{
-                position: "absolute",
-                top: "2rem",
-                right: "2rem",
                 width: "1rem",
                 height: "1rem",
                 borderRadius: "50%",
                 backgroundColor: "#20441c",
-                zIndex: 10,
               }}
             />
           </Link>

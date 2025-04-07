@@ -131,6 +131,11 @@ function StyleSheet() {
             right: 2rem;
             z-index: 100;
             cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .home-circle {
