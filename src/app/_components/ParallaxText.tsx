@@ -9,15 +9,17 @@ import {
   useMotionValue,
   useVelocity,
   useAnimationFrame,
+  wrap,
 } from "framer-motion";
-import { wrap } from "@motionone/utils";
+import { cn } from '~/util'
 
 interface ParallaxTextProps {
   children: string;
   baseVelocity: number;
+  className?: string;
 }
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
+function ParallaxText({ children, baseVelocity = 100, className }: ParallaxTextProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -29,22 +31,14 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
     clamp: false,
   });
 
-  // Number of text instances
-  const numInstances = 3;
-
-  // Calculate wrap range based on number of instances
-  // For 3 instances, we want to wrap from 0% to -66.67% (100% / 3 * 2)
-  const wrapMin = 0;
-  // const wrapMax = -(100 / numInstances) * (numInstances - 1);
-  const wrapMax = -56;
 
   // Use the calculated wrap range
-  const x = useTransform(baseX, (v) => `${wrap(wrapMin, wrapMax, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 500);
+    let moveBy = directionFactor.current * baseVelocity * (delta / 1500);
 
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
@@ -58,17 +52,18 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps) {
   });
 
   return (
-    <div className="parallax overflow-hidden whitespace-nowrap">
-      <motion.div className="scroller flex whitespace-nowrap" style={{ x }}>
-        <span className="mr-4 text-3xl text-[#d4af37] uppercase" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
-          {children}
-        </span>
-        <span className="mr-4 text-3xl text-[#d4af37] uppercase" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
-          {children}
-        </span>
-        <span className="mr-4 text-3xl text-[#d4af37] uppercase" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
-          {children}
-        </span>
+    <div className="overflow-hidden max-w-[100vw] text-nowrap flex-nowrap flex relative">
+      <motion.div
+        className={cn(
+          "font-bold uppercase text-5xl flex flex-nowrap text-nowrap *:block *:me-10 text-[#d4af37]",
+          className
+        )}
+        style={{ x, fontFamily: 'var(--font-crimson-pro), serif' }}
+      >
+        <span>{children}</span>
+        <span>{children}</span>
+        <span>{children}</span>
+        <span>{children}</span>
       </motion.div>
     </div>
   );

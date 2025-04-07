@@ -3,7 +3,7 @@ import Link from "next/link";
 // import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
-import Hero from "./hero/page";
+import Hero from "./_components/hero";
 import ParallaxText from "./_components/ParallaxText";
 
 export default async function Home() {
@@ -20,8 +20,10 @@ export default async function Home() {
         <Hero />
         <div className="container flex flex-col items-center justify-center">
           <div className="w-full overflow-hidden py-8">
-            <ParallaxText baseVelocity={-5}>Request to Join</ParallaxText>
-            <ParallaxText baseVelocity={5}>Request to Join</ParallaxText>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+              <ParallaxText baseVelocity={15}>Request to Join</ParallaxText>
+              <ParallaxText baseVelocity={-15}>Request to Join</ParallaxText>
+            </div>
           </div>
           <div className="w-full max-w-md mx-auto p-16">
             <div className="relative">
