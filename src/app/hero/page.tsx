@@ -141,14 +141,14 @@ const Hero = () => {
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              padding: "5rem"
+              padding: "4rem"
             }}
           />
 
           {/* Footer row with three columns */}
           <div style={{
             position: "absolute",
-            bottom: "4rem",
+            bottom: "5rem",
             left: 0,
             right: 0,
             display: "flex",
