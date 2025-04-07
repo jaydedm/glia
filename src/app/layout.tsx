@@ -19,6 +19,25 @@ export const metadata: Metadata = {
   title: "Glia",
   description: "Glia Book Club",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  openGraph: {
+    title: "Glia",
+    description: "A discerning collective that cultivates humanity through connection, reflection, and exceptional literature",
+    images: [
+      {
+        url: "/GliaBookClubLogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Glia Book Club",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Glia Book Club",
+    description: "A discerning collective that cultivates humanity through connection, reflection, and exceptional literature",
+    images: ["/glia-logo-green.svg"],
+  },
 };
 
 const geist = Geist({
