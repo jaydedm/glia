@@ -141,7 +141,7 @@ const Hero = () => {
               width: "100%",
               height: "100%",
               objectFit: "contain",
-              padding: "4rem"
+              padding: "5rem"
             }}
           />
 
