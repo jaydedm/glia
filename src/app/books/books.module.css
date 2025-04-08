@@ -1,15 +1,3 @@
-/* Books page styles */
-:global(html) {
-  scroll-snap-type: y mandatory;
-  background-color: var(--color-primary);
-}
-
-:global(body) {
-  background-color: var(--color-primary);
-  margin: 0;
-  padding: 0;
-}
-
 .homeLink {
   position: fixed;
   top: .5rem;
