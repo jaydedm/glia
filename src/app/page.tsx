@@ -1,9 +1,9 @@
-
 // import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth"
 import { api, HydrateClient } from "~/trpc/server"
-import Hero from "./_components/hero"
+import Hero from "./_components/hero/hero"
 import ParallaxText from "./_components/ParallaxText"
+import EmailForm from "./_components/EmailForm"
 
 export default async function Home() {
   // const hello = await api.post.hello({ text: "from tRPC" });
@@ -25,21 +25,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="w-full max-w-md mx-auto p-16">
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent bg-white/10 text-[#eaf5e9] placeholder-gray-400"
-              />
-              <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#d4af37] hover:text-[#eaf5e9] transition-colors"
-                aria-label="Submit"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </div>
+            <EmailForm />
           </div>
         </div>
       </main>

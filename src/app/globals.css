@@ -1,0 +1,18 @@
+:root {
+  /* Color palette */
+  --color-primary: #0a2a0a; /* Dark green background */
+  --color-secondary: #eaf5e9; /* Light green color */
+  --color-accent: #d4af37; /* Gold color */
+
+  /* Other global variables can be added here */
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}

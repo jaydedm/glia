@@ -5,6 +5,12 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+:root {
+  /* Color palette */
+  --color-primary: #0a2a0a; /* Dark green background */
+  --color-secondary: #eaf5e9; /* Light green color */
+  --color-accent: #d4af37; /* Gold color */
+}
 
 .hero-wrapper {
   position: relative;
