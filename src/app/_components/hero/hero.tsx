@@ -103,7 +103,7 @@ const Hero = () => {
             <div className={styles.booksLinkDot} />
           </Link>
 
-          <div className={styles.imageContainer}>
+          <div className={styles.imageContainer} style={{pointerEvents: "none"}}>
             <Image
               src="/glia-logo-green.svg"
               alt="Top Mask"
@@ -155,7 +155,7 @@ const Hero = () => {
             {/* Right column - Email link */}
             <div className={styles.footerColumnRight}>
               <a
-                href="mailto:contact@glia.com"
+                href="mailto:jayde@jaydemitchell.com"
                 className={styles.footerLinkEmail}
               >
                 email us

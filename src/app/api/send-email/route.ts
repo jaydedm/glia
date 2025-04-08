@@ -3,7 +3,7 @@ import nodemailer from "nodemailer"
 
 export async function POST (request: Request) {
   try {
-    const { email } = await request.json() as { email: string }
+    const { email, instagramHandle, reason } = await request.json() as { email: string; instagramHandle: string; reason: string }
 
     // Validate email
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -43,12 +43,14 @@ export async function POST (request: Request) {
       from: process.env.SMTP_FROM ?? "noreply@glia.com",
       to: "jayde@jaydemitchell.com",
       subject: "Glia Request",
-      text: `New request to join Glia from: ${email}`,
+      text: `New request to join Glia from: ${email}\nInstagram Handle: ${instagramHandle}\nReason: ${reason}`,
       html: `
         <h2>New Glia Request</h2>
         <p>A new user has requested to join Glia.</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p>Please ensure this is a valid email address.</p>
+        <p><strong>Instagram Handle:</strong> ${instagramHandle}</p>
+        <p><strong>Reason for Joining:</strong></p>
+        <p>${reason}</p>
       `,
     }
 
