@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./hero.module.css";
-import TypewriterCursor from '../TypeWriterCursor'
+import TypewriterCursor from "../TypeWriterCursor";
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -25,10 +25,9 @@ const Hero = () => {
     bounce: 0,
   });
 
-  // Animate the background image scale from 1.5 (zoomed in) to 1 (normal)
+  // Not used in current impl, but in case you ever use a real background image.
   const scale = useTransform(smoothScrollProgress, [0, 1], [1.5, 1]);
 
-  // Animate the masks moving apart.
   const topMaskTranslateY = useTransform(
     smoothScrollProgress,
     [0, 1],
@@ -40,45 +39,39 @@ const Hero = () => {
     [0, 1600],
   );
 
-  // Divider opacity is 1 at scrollYProgress=0, and immediately drops to 0 once scrolling begins.
   const dividerOpacity = useTransform(smoothScrollProgress, [0, 0.001], [1, 0]);
 
-  // Blinking cursor effect
   useEffect(() => {
-    // Only run the cursor interval if typing is not complete
     if (!typingComplete) {
       const cursorInterval = setInterval(() => {
         setShowCursor((prev) => !prev);
-      }, 500); // Blink every 500ms
+      }, 500);
 
       return () => clearInterval(cursorInterval);
     }
   }, [typingComplete]);
 
-  // Typewriter effect based on scroll progress
   useEffect(() => {
-    const unsubscribe = smoothScrollProgress.on("change", (latest) => {
-      // Start typing immediately when scrolling begins
-      if (latest > 0) {
-        const progress = Math.min(1, latest / 0.2); // Complete typing by 15% scroll
-        const charsToShow = Math.floor(progress * fullText.length);
-        setTypedText(fullText.substring(0, charsToShow));
-
-        if (charsToShow === fullText.length) {
-          setTypingComplete(true);
-        } else {
-          setTypingComplete(false);
-          setShowCursor(true);
-        }
-      } else {
+    const typingThreshold = 0.2;
+    const handleScrollChange = (latest: number) => {
+      if (latest <= 0) {
         setTypedText("");
         setTypingComplete(false);
         setShowCursor(true);
+        return;
       }
-    });
 
+      const progress = Math.min(1, latest / typingThreshold);
+      const charsToShow = Math.floor(progress * fullText.length);
+
+      setTypedText(fullText.substring(0, charsToShow));
+      setTypingComplete(charsToShow === fullText.length);
+      setShowCursor(charsToShow < fullText.length);
+    };
+
+    const unsubscribe = smoothScrollProgress.on("change", handleScrollChange);
     return () => unsubscribe();
-  }, [smoothScrollProgress]);
+  }, [smoothScrollProgress, fullText]);
 
   return (
     <div ref={containerRef} className={styles.container}>

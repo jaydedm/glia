@@ -18,7 +18,7 @@ const crimsonPro = Crimson_Pro({
 export const metadata: Metadata = {
   title: "Glia",
   description: "Glia Book Club",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/GliaBookClubLogo.ico" }],
   openGraph: {
     title: "Glia",
     description: "A discerning collective that cultivates humanity through connection, reflection, and exceptional literature",
@@ -31,12 +31,6 @@ export const metadata: Metadata = {
       },
     ],
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Glia Book Club",
-    description: "A discerning collective that cultivates humanity through connection, reflection, and exceptional literature",
-    images: ["/glia-logo-green.svg"],
   },
 };
 
