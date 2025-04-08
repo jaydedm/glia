@@ -1,8 +1,44 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
+// Simple in-memory rate limiting
+// In production, use a more robust solution like Redis
+const rateLimit = new Map<string, { count: number; timestamp: number }>();
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
+const MAX_REQUESTS = 5; // Maximum 5 requests per hour
+
 export async function POST (request: Request) {
   try {
+    // Get client IP for rate limiting
+    // Using a simpler approach that doesn't rely on headers API
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
+
+    // Check rate limit
+    const now = Date.now();
+    const rateLimitData = rateLimit.get(ip);
+
+    if (rateLimitData) {
+      // If the window has expired, reset the counter
+      if (now - rateLimitData.timestamp > RATE_LIMIT_WINDOW) {
+        rateLimit.set(ip, { count: 1, timestamp: now });
+      } else if (rateLimitData.count >= MAX_REQUESTS) {
+        // Rate limit exceeded
+        return NextResponse.json(
+          { error: "Too many requests from this ip. Please try again later." },
+          { status: 429 }
+        );
+      } else {
+        // Increment the counter
+        rateLimit.set(ip, {
+          count: rateLimitData.count + 1,
+          timestamp: rateLimitData.timestamp
+        });
+      }
+    } else {
+      // First request from this IP
+      rateLimit.set(ip, { count: 1, timestamp: now });
+    }
+
     const { email, instagramHandle, reason } = await request.json() as { email: string; instagramHandle: string; reason: string }
 
     // Validate email
@@ -13,7 +49,6 @@ export async function POST (request: Request) {
       )
     }
 
-    // Create a transporter using SMTP
     // Create a transporter using SMTP
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST ?? "smtp.gmail.com",
@@ -36,7 +71,6 @@ export async function POST (request: Request) {
         { status: 500 }
       )
     }
-
 
     // Email content
     const mailOptions = {

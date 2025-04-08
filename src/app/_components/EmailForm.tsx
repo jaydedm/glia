@@ -7,6 +7,7 @@ export default function EmailForm() {
   const [email, setEmail] = useState("");
   const [instagramHandle, setInstagramHandle] = useState("");
   const [reason, setReason] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
@@ -18,6 +19,15 @@ export default function EmailForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (honeypot) {
+      setIsSuccess(true);
+      setEmail("");
+      setInstagramHandle("");
+      setReason("");
+      setHoneypot("");
+      return;
+    }
 
     if (!validateEmail(email)) {
       setMessage({ text: "Please enter a valid email address", type: "error" });
@@ -76,6 +86,17 @@ export default function EmailForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-transparent bg-white/10 text-[#eaf5e9] placeholder-gray-400"
                   disabled={isSubmitting}
+                />
+              </div>
+              <div className="absolute -left-[9999px] -top-[9999px]">
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
                 />
               </div>
               <input
