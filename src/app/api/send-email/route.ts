@@ -1,18 +1,19 @@
-import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from "next/server"
+import nodemailer from "nodemailer"
 
-export async function POST(request: Request) {
+export async function POST (request: Request) {
   try {
-    const { email } = await request.json() as { email: string };
+    const { email } = await request.json() as { email: string }
 
     // Validate email
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
         { error: "Invalid email address" },
         { status: 400 }
-      );
+      )
     }
 
+    // Create a transporter using SMTP
     // Create a transporter using SMTP
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST ?? "smtp.gmail.com",
@@ -22,7 +23,20 @@ export async function POST(request: Request) {
         user: process.env.SMTP_USER ?? "",
         pass: process.env.SMTP_PASS ?? "",
       },
-    });
+    })
+
+    // (Optional) Verify the connection configuration
+    try {
+      await transporter.verify()
+      console.log("SMTP server is ready to take messages")
+    } catch (verifyError) {
+      console.error("SMTP verification error:", verifyError)
+      return NextResponse.json(
+        { error: "SMTP verification failed" },
+        { status: 500 }
+      )
+    }
+
 
     // Email content
     const mailOptions = {
@@ -36,20 +50,20 @@ export async function POST(request: Request) {
         <p><strong>Email:</strong> ${email}</p>
         <p>Please ensure this is a valid email address.</p>
       `,
-    };
+    }
 
     // Send email
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions)
 
     return NextResponse.json(
       { message: "Email sent successfully" },
       { status: 200 }
-    );
+    )
   } catch (error: unknown) {
-    console.error("Error sending email:", error);
+    console.error("Error sending email:", error)
     return NextResponse.json(
       { error: "Failed to send email" },
       { status: 500 }
-    );
+    )
   }
 }
