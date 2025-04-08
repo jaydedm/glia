@@ -44,6 +44,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${inter.className} ${crimsonPro.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          href="/book-cover-art/nightingale.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+      </head>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
