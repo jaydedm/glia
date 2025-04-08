@@ -132,7 +132,7 @@ const Hero = () => {
             {/* Left column - Instagram link */}
             <div className={styles.footerColumn}>
               <a
-                href="https://instagram.com/glia"
+                href="https://instagram.com/gliabookclub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.footerLink}
